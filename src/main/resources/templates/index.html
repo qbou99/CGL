@@ -1,12 +1,14 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
 
 <head>
-  <title>Index</title>
+    <title>Archivage de documents</title>
 </head>
 <body>
-  <p>Hello World!</p>
+    <h1>Bienvenue sur l'application d'archivage de document</h1>
+    <a th:href="@{docs_list}">Liste des documents archivés</a><br/>
+    <a th:href="@{new_doc}">Archiver un nouveau document</a><br/><br/>
+    <a th:href="@{stats}">Statistiques d'archivage</a>
 </body>
