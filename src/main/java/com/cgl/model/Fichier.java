@@ -1,7 +1,8 @@
 package com.cgl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = "date",
+        allowGetters = true)
 public class Fichier {
 
     @Id
@@ -24,11 +28,18 @@ public class Fichier {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @NotNull
     private TypeFichier typeFichier;
+
+    public Fichier() {
+        this.nom = "";
+        this.chemin = "";
+        this.date = new Date();;
+        this.typeFichier = null;
+    }
 
     public Long getId() {
         return id;
