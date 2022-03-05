@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+<head>
+    <title>Archivage de documents</title>
+</head>
+<body>
+<p>
+    <input type="text" value="nom de l'archive"/><input type="submit" value="Rechercher"/><br/>
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom du document</th>
+        <th>Date d'archivage</th>
+        <th>Télécharger l'archive</th>
+        <th>Supprimer l'archive</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>doc13.txt</td>
+        <td>09/09/2020</td>
+        <td><a href="">lien</a></td>
+        <td><a href="" onclick="alert('Êtes-vous sûr ?')">X</a></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>doc37.xlsx</td>
+        <td>03/11/2021</td>
+        <td><a href="">lien</a></td>
+        <td><a href="" onclick="alert('Êtes-vous sûr ?')">X</a></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}">Retour à l'accueil</a>
+</body>

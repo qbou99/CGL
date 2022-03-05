@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+<head>
+    <title>Archivage de documents</title>
+</head>
+<body>
+<form  action="./index.html" method="post">
+    Charger le document <input type="file" /><br/>
+    Nom du document <input type="text" /><br/>
+    <input type="submit" value="Valider" action=""/>
+</form>
+<a th:href="@{/}">Retour à l'accueil</a>
+</body>

@@ -13,4 +13,19 @@ public class ViewController {
     public String index() {
         return "index";
     }
+
+    @GetMapping(value="/docs_list")
+    public String docs_list() {
+        return "docs_list";
+    }
+
+    @GetMapping(value="/new_doc")
+    public String new_doc() {
+        return "new_doc";
+    }
+
+    @GetMapping(value="/stats")
+    public String stats() {
+        return "stats";
+    }
 }
