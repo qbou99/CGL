@@ -1,6 +1,9 @@
 package com.cgl.model;
 
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Fichier {
@@ -8,8 +11,20 @@ public class Fichier {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String path;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date date;
+
+    @NotBlank
+    private TypeFichier typeFichier;
+
 
     public Fichier(String name, String path) {
         this.name = name;
