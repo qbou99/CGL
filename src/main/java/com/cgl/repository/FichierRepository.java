@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface FichierRepository extends JpaRepository<Fichier, Long> {
     Optional<Fichier> findById(Long id);
+
+    Fichier findByTypeFichier(String typeFichier);
 }

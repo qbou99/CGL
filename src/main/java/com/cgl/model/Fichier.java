@@ -1,9 +1,13 @@
 package com.cgl.model;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class Fichier {
@@ -13,75 +17,80 @@ public class Fichier {
     private Long id;
 
     @NotBlank
-    private String name;
+    private String nom;
 
     @NotBlank
-    private String path;
+    private String chemin;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
     private Date date;
 
-    @NotBlank
+    @NotNull
     private TypeFichier typeFichier;
-
-
-    public Fichier(String name, String path) {
-        this.name = name;
-        this.path = path;
-    }
-
-    public Fichier() {
-        this.name = "";
-        this.path = "";
-    }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public String getPath() {
-        return path;
+    public String getChemin() {
+        return chemin;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setChemin(String chemin) {
+        this.chemin = chemin;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public TypeFichier getTypeFichier() {
+        return typeFichier;
+    }
+
+    public void setTypeFichier(TypeFichier typeFichier) {
+        this.typeFichier = typeFichier;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Fichier fichier = (Fichier) o;
-
-        if (!id.equals(fichier.id)) return false;
-        if (!name.equals(fichier.name)) return false;
-        return path.equals(fichier.path);
+        return Objects.equals(id, fichier.id) &&
+                Objects.equals(nom, fichier.nom) &&
+                Objects.equals(chemin, fichier.chemin) &&
+                Objects.equals(date, fichier.date) &&
+                typeFichier == fichier.typeFichier;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + path.hashCode();
-        return result;
+        return Objects.hash(id, nom, chemin, date, typeFichier);
     }
 
     @Override
     public String toString() {
         return "Fichier{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", path='" + path + '\'' +
+                ", nom='" + nom + '\'' +
+                ", chemin='" + chemin + '\'' +
+                ", date=" + date +
+                ", typeFichier=" + typeFichier +
                 '}';
     }
 }
