@@ -1,5 +1,6 @@
 package com.cgl.view;
 
+import com.cgl.model.Fichier;
 import com.cgl.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
