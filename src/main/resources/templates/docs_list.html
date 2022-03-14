@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Archivage de documents</title>
@@ -16,24 +15,17 @@
         <th>ID</th>
         <th>Nom du document</th>
         <th>Date d'archivage</th>
-        <th>Télécharger l'archive</th>
+        <th>Chemin d'accès</th>
         <th>Supprimer l'archive</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td>doc13.txt</td>
-        <td>09/09/2020</td>
-        <td><a href="">lien</a></td>
-        <td><a href="" onclick="alert('Êtes-vous sûr ?')">X</a></td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>doc37.xlsx</td>
-        <td>03/11/2021</td>
-        <td><a href="">lien</a></td>
-        <td><a href="" onclick="alert('Êtes-vous sûr ?')">X</a></td>
+    <tr th:each="fichier : ${fichiers}">
+        <td th:text="${fichier.id}"></td>
+        <td th:text="${fichier.nom}"></td>
+        <td th:text="${fichier.date}"></td>
+        <td th:text="${fichier.chemin}"></td>
+        <td><form th:action="@{/document/{id}(id = ${fichier.id})}" th:method="delete"><input type="submit" value="Submit" onclick="confirm('Êtes-vous sûr ?')"/></form></td>
     </tr>
     </tbody>
 </table>

@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Archivage de documents</title>
 </head>
 <body>
-<form  action="./index.html" method="post">
-    Charger le document <input type="file" /><br/>
-    Nom du document <input type="text" /><br/>
-    <input type="submit" value="Valider" action=""/>
+<form th:action="@{/}" th:method="post" th:object="${fichier}">
+    Charger le document <input type="file" th:field="*{chemin}" /><br/>
+    Nom du document <input type="text" th:field="*{nom}" /><br/>
+    Type du document <select th:field="*{typeFichier}">
+        <option th:value="---" th:text="---"></option>
+        <option th:value="texte" th:text="Texte"></option>
+        <option th:value="audio" th:text="Audio"></option>
+        <option th:value="video" th:text="Video"></option>
+        <option th:value="image" th:text="Image"></option>
+        <option th:value="binaire" th:text="Binaire"></option>
+    </select>
+    <input type="submit" value="Valider"/>
 </form>
 <a th:href="@{/}">Retour à l'accueil</a>
 </body>
