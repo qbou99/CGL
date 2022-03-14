@@ -2,6 +2,7 @@ package com.cgl.controller;
 
 import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
+import com.cgl.model.TypeFichier;
 import com.cgl.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,22 +31,22 @@ public class FichierController {
 
     @GetMapping("/texte")
     public Fichier getFichiersTexte() {
-        return fichierRepository.findByTypeFichier("Texte");
+        return fichierRepository.findByTypeFichier(TypeFichier.Texte);
     }
 
     @GetMapping("/image")
     public Fichier getFichiersImage() {
-        return fichierRepository.findByTypeFichier("Image");
+        return fichierRepository.findByTypeFichier(TypeFichier.Image);
     }
 
     @GetMapping("/video")
     public Fichier getFichiersVideo() {
-        return fichierRepository.findByTypeFichier("Video");
+        return fichierRepository.findByTypeFichier(TypeFichier.Video);
     }
 
     @GetMapping("/audio")
     public Fichier getFichiersAudio() {
-        return fichierRepository.findByTypeFichier("Audio");
+        return fichierRepository.findByTypeFichier(TypeFichier.Audio);
     }
 
     @PostMapping("")
