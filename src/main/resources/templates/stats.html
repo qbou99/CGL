@@ -14,13 +14,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>09/09/2020</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <td>03/11/2021</td>
-        <td>3</td>
+    <tr th:each="stat : ${stats}">
+        <td th:text="${stat.getKey()}"></td>
+        <td th:text="${stat.getValue()}"></td>
     </tr>
     </tbody>
 </table>
