@@ -14,6 +14,7 @@
     <tr>
         <th>ID</th>
         <th>Nom du document</th>
+        <th>Type</th>
         <th>Date d'archivage</th>
         <th>Chemin d'accès</th>
         <th>Supprimer l'archive</th>
@@ -23,9 +24,14 @@
     <tr th:each="fichier : ${fichiers}">
         <td th:text="${fichier.id}"></td>
         <td th:text="${fichier.nom}"></td>
+        <td th:text="${fichier.typeFichier}"></td>
         <td th:text="${fichier.date}"></td>
         <td th:text="${fichier.chemin}"></td>
-        <td><form th:action="@{/document/{id}(id = ${fichier.id})}" th:method="delete"><input type="submit" value="Submit" onclick="confirm('Êtes-vous sûr ?')"/></form></td>
+        <td>
+            <form th:action="@{/document/{id}(id = ${fichier.id})}" th:method="post">
+                <input type="submit" value="Supprimer" onclick="confirm('Êtes-vous sûr ?')"/>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

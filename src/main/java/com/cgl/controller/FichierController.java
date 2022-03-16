@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
 import java.util.List;
@@ -51,10 +52,11 @@ public class FichierController {
     }
 
     @PostMapping(path = "")
-    public Fichier archiveFichier(@RequestParam("file") File file, @RequestParam("nom") String nom, @RequestParam("typeFichier") String typeFichier) {
+    public RedirectView archiveFichier(@RequestParam("file") File file, @RequestParam("nom") String nom, @RequestParam("typeFichier") String typeFichier) {
         String chemin = StringUtils.cleanPath(file.getAbsolutePath());
         Fichier fichier = new Fichier(chemin, nom, stringToTypeFichier(typeFichier));
-        return fichierRepository.save(fichier);
+        fichierRepository.save(fichier);
+        return new RedirectView("new_doc");
     }
 
     private TypeFichier stringToTypeFichier(String typeFichier) {
@@ -74,12 +76,13 @@ public class FichierController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteFichier(@PathVariable(value = "id") Long fichierId) {
+    @PostMapping(path = "/{id}")
+    public RedirectView deleteFichier(@PathVariable(value = "id") Long fichierId) {
         Fichier fichier = fichierRepository.findById(fichierId)
                 .orElseThrow(() -> new ResourceNotFoundException("Fichier", "id", fichierId));
         fichierRepository.delete(fichier);
-        return ResponseEntity.ok().build();
+        return new RedirectView("../docs_list");
+
     }
 
 }
