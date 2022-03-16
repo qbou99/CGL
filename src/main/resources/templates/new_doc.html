@@ -6,7 +6,7 @@
     <title>Archivage de documents</title>
 </head>
 <body>
-<form th:action="@{/}" th:method="post" th:object="${fichier}">
+<form th:action="@{/document}" th:method="post" th:object="${fichier}">
     Charger le document <input type="file" th:field="*{chemin}" /><br/>
     Nom du document <input type="text" th:field="*{nom}" /><br/>
     Type du document <select th:field="*{typeFichier}">

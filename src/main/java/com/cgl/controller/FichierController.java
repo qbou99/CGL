@@ -1,10 +1,12 @@
 package com.cgl.controller;
 
+import com.cgl.dto.FichierDto;
 import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
 import com.cgl.model.TypeFichier;
 import com.cgl.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,9 +51,10 @@ public class FichierController {
         return fichierRepository.findByTypeFichier(TypeFichier.Audio);
     }
 
-    @PostMapping("")
-    public Fichier archiveFichier(@Valid @RequestBody Fichier fichier) {
-        return fichierRepository.save(fichier);
+    @PostMapping(path = "",
+            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public Fichier archiveFichier(@Valid @RequestBody FichierDto fichier) {
+        return fichierRepository.save(fichier.dtoToEntity());
     }
 
     @DeleteMapping("/{id}")

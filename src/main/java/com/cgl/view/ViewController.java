@@ -1,6 +1,6 @@
 package com.cgl.view;
 
-import com.cgl.model.Fichier;
+import com.cgl.dto.FichierDto;
 import com.cgl.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class ViewController {
 
     @GetMapping(value="/new_doc")
     public String new_doc(Model model) {
-        model.addAttribute("fichier", new Fichier());
+        model.addAttribute("fichier", new FichierDto());
         return "new_doc";
     }
 
