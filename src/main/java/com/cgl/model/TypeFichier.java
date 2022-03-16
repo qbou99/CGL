@@ -5,5 +5,6 @@ public enum TypeFichier {
     Image,
     Audio,
     Video,
-    Binaire
+    Binaire,
+    Inconnu
 }

@@ -1,16 +1,15 @@
 package com.cgl.controller;
 
-import com.cgl.dto.FichierDto;
 import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
 import com.cgl.model.TypeFichier;
 import com.cgl.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -51,10 +50,28 @@ public class FichierController {
         return fichierRepository.findByTypeFichier(TypeFichier.Audio);
     }
 
-    @PostMapping(path = "",
-            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public Fichier archiveFichier(@Valid @RequestBody FichierDto fichier) {
-        return fichierRepository.save(fichier.dtoToEntity());
+    @PostMapping(path = "")
+    public Fichier archiveFichier(@RequestParam("file") File file, @RequestParam("nom") String nom, @RequestParam("typeFichier") String typeFichier) {
+        String chemin = StringUtils.cleanPath(file.getAbsolutePath());
+        Fichier fichier = new Fichier(chemin, nom, stringToTypeFichier(typeFichier));
+        return fichierRepository.save(fichier);
+    }
+
+    private TypeFichier stringToTypeFichier(String typeFichier) {
+        switch (typeFichier) {
+            case "Image":
+                return TypeFichier.Image;
+            case "Texte":
+                return TypeFichier.Texte;
+            case "Audio":
+                return TypeFichier.Audio;
+            case "Video":
+                return TypeFichier.Video;
+            case "Binaire":
+                return TypeFichier.Binaire;
+            default:
+                return TypeFichier.Inconnu;
+        }
     }
 
     @DeleteMapping("/{id}")

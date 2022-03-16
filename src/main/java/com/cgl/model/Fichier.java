@@ -3,6 +3,7 @@ package com.cgl.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,7 +24,6 @@ public class Fichier {
     @NotBlank
     private String nom;
 
-    @NotBlank
     private String chemin;
 
     @CreatedDate
@@ -36,9 +36,14 @@ public class Fichier {
 
     public Fichier() {
         this.nom = "";
-        this.chemin = "";
-        this.date = new Date();;
-        this.typeFichier = null;
+        this.date = new Date();
+    }
+
+    public Fichier(String chemin, String nom, TypeFichier typeFichier) {
+        this.chemin = chemin;
+        this.typeFichier = typeFichier;
+        this.nom = nom;
+        this.date = new Date();
     }
 
     public Long getId() {

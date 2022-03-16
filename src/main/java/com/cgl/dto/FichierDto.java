@@ -1,26 +1,61 @@
 package com.cgl.dto;
 
 import com.cgl.model.Fichier;
-import org.springframework.data.annotation.CreatedDate;
+import com.cgl.model.TypeFichier;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
 
 public class FichierDto {
+
+    @NotBlank
     private String nom;
 
     private String chemin;
 
-    private String date;
+    @NotNull
+    private TypeFichier typeFichier;
 
-    private String typeFichier;
+    public FichierDto() {
+        this.nom = "";
+        this.chemin = "";
+    }
 
     public Fichier dtoToEntity() {
-        return new Fichier();
+        Fichier fichier = new Fichier();
+        fichier.setNom(this.getNom());
+        fichier.setChemin(this.getChemin());
+        fichier.setTypeFichier(this.getTypeFichier());
+        return fichier;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getChemin() {
+        return chemin;
+    }
+
+    public void setChemin(String chemin) {
+        this.chemin = chemin;
+    }
+
+    public TypeFichier getTypeFichier() {
+        return typeFichier;
+    }
+
+    public void setTypeFichier(TypeFichier typeFichier) {
+        this.typeFichier = typeFichier;
     }
 }

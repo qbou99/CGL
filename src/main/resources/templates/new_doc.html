@@ -6,18 +6,18 @@
     <title>Archivage de documents</title>
 </head>
 <body>
-<form th:action="@{/document}" th:method="post" th:object="${fichier}">
-    Charger le document <input type="file" th:field="*{chemin}" /><br/>
-    Nom du document <input type="text" th:field="*{nom}" /><br/>
-    Type du document <select th:field="*{typeFichier}">
-        <option th:value="---" th:text="---"></option>
-        <option th:value="texte" th:text="Texte"></option>
-        <option th:value="audio" th:text="Audio"></option>
-        <option th:value="video" th:text="Video"></option>
-        <option th:value="image" th:text="Image"></option>
-        <option th:value="binaire" th:text="Binaire"></option>
-    </select>
-    <input type="submit" value="Valider"/>
+<form th:method="post" th:action="@{/document}">
+    Charger le document <input type="file" name="file"/><br/>
+    Nom du document <input type="text" name="nom"/><br/>
+    Type du document <select name="typeFichier">
+    <option th:value="---" th:text="---"></option>
+    <option th:value="Texte" th:text="Texte"></option>
+    <option th:value="Audio" th:text="Audio"></option>
+    <option th:value="Video" th:text="Video"></option>
+    <option th:value="Image" th:text="Image"></option>
+    <option th:value="Binaire" th:text="Binaire"></option>
+</select>
+    <button type="submit"> Valider</button>
 </form>
 <a th:href="@{/}">Retour à l'accueil</a>
 </body>
