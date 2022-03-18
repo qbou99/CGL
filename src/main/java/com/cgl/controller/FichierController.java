@@ -5,8 +5,6 @@ import com.cgl.model.Fichier;
 import com.cgl.model.Type;
 import com.cgl.repository.FichierRepository;
 import com.cgl.repository.TypeRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -22,8 +20,9 @@ public class FichierController {
     private final FichierRepository fichierRepository;
     private final TypeRepository typeRepository;
 
-    public FichierController(FichierRepository fichierRepository) {
+    public FichierController(FichierRepository fichierRepository, TypeRepository typeRepository) {
         this.fichierRepository = fichierRepository;
+        this.typeRepository = typeRepository;
     }
 
     @GetMapping("")
