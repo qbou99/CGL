@@ -22,29 +22,13 @@ public class FichierController {
     private final FichierRepository fichierRepository;
     private final TypeRepository typeRepository;
 
-    List<Fichier> fichiers;
-    int page = 0;
-    String nomCherche = "";
-
-    public FichierController(FichierRepository fichierRepository, TypeRepository typeRepository) {
+    public FichierController(FichierRepository fichierRepository) {
         this.fichierRepository = fichierRepository;
-        this.typeRepository = typeRepository;
-        Pageable pageable = PageRequest.of(page, 10);
-        this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
     }
 
     @GetMapping("")
     public List<Fichier> getAllFichiers() {
         return fichierRepository.findAll();
-    }
-
-    @GetMapping("/nom")
-    public RedirectView getFichierContainingNom(@RequestParam(value = "nom") String nomFichier) {
-        this.page = 0;
-        this.nomCherche = nomFichier;
-        Pageable pageable = PageRequest.of(page, 10);
-        fichiers = fichierRepository.findByNomContaining(nomFichier, pageable);
-        return new RedirectView("../../docs_list");
     }
 
     @GetMapping("/{id}")
@@ -70,32 +54,12 @@ public class FichierController {
         return new RedirectView("new_doc");
     }
 
-    @PostMapping(path = "/p")
-    public RedirectView addPage() {
-        if (this.page < (fichierRepository.findAll().size() / 10)) {
-            this.page = this.page + 1;
-            Pageable pageable = PageRequest.of(page, 10);
-            this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
-        }
-        return new RedirectView("../docs_list");
-    }
-
-    @PostMapping(path = "/m")
-    public RedirectView deletePage() {
-        if (this.page > 0) {
-            this.page = this.page - 1;
-            Pageable pageable = PageRequest.of(page, 10);
-            this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
-        }
-        return new RedirectView("../docs_list");
-    }
-
     @PostMapping(path = "/{id}")
     public RedirectView deleteFichier(@PathVariable(value = "id") Long fichierId) {
         Fichier fichier = fichierRepository.findById(fichierId)
                 .orElseThrow(() -> new ResourceNotFoundException("Fichier", "id", fichierId));
         fichierRepository.delete(fichier);
-        return new RedirectView("../docs_list");
+        return new RedirectView("../docs_list/0");
 
     }
 
