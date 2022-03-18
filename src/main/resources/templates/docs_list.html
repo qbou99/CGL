@@ -41,13 +41,13 @@
     </tbody>
 </table>
 
-<form th:action="@{/docs_list/pagePrecedante/{page}(page = page)}" th:method="get">
-    <input type="submit" value="<"/>
-</form>
+<span>
+<a th:if="${pagePrec} >= 0" th:href="@{/docs_list/{page}(page = ${pagePrec})}">Précédent</a>
 
-<form th:action="@{/docs_list/pageSuivante/{page}(page = page)}" th:method="get">
-    <input type="submit" value=">"/>
-</form>
-
+<a th:if="${pageSuiv} >= 0" th:href="@{/docs_list/{page}(page = ${pageSuiv})}">Suivant</a>
+</span>
+<br/>
+<br/>
+<br/>
 <a th:href="@{/}">Retour à l'accueil</a>
 </body>

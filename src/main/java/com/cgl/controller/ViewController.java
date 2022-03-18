@@ -37,7 +37,12 @@ public class ViewController {
         Pageable pageable = PageRequest.of(Integer.parseInt(page), 10);
         List<Fichier> fichiers = fichierRepository.findByNomContaining("", pageable);
         model.addAttribute("fichiers", fichiers);
-        model.addAttribute("page", page);
+        if(fichiers.size() == 10)
+            model.addAttribute("pageSuiv", Integer.parseInt(page) + 1);
+        else
+            model.addAttribute("pageSuiv", -1);
+        model.addAttribute("pagePrec", Integer.parseInt(page) - 1);
+
         return "docs_list";
     }
 
@@ -48,25 +53,6 @@ public class ViewController {
         model.addAttribute("fichiers", fichiers);
         model.addAttribute("page", page);
         model.addAttribute("nom", nom);
-        return "docs_list";
-    }
-
-    @GetMapping(value = "/docs_list/pageSuivante/{page}/{nom}")
-    public String docs_list_nom_suivant(@PathVariable(value = "nom") String nom, @PathVariable(value = "page") String page, Model model) {
-        Pageable pageable = PageRequest.of(Integer.parseInt(page), 10);
-        List<Fichier> fichiers = fichierRepository.findByNomContaining(nom, pageable);
-        model.addAttribute("fichiers", fichiers);
-        model.addAttribute("page", page + 1);
-        model.addAttribute("nom", nom);
-        return "docs_list";
-    }
-
-    @GetMapping(value = "/docs_list/pageSuivante/{page}/")
-    public String docs_list_suivant(@PathVariable(value = "page") String page, Model model) {
-        Pageable pageable = PageRequest.of(Integer.parseInt(page), 10);
-        List<Fichier> fichiers = fichierRepository.findByNomContaining("", pageable);
-        model.addAttribute("fichiers", fichiers);
-        model.addAttribute("page", page + 1);
         return "docs_list";
     }
 
