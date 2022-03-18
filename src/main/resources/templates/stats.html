@@ -15,8 +15,8 @@
     </thead>
     <tbody>
     <tr th:each="stat : ${stats}">
-        <td th:text="${stat.getKey()}"></td>
-        <td th:text="${stat.getValue()}"></td>
+        <td th:text="${stat[0]}"></td>
+        <td th:text="${stat[1]}"></td>
     </tr>
     </tbody>
 </table>

@@ -1,4 +1,4 @@
-package com.cgl.view;
+package com.cgl.controller;
 
 import com.cgl.dto.FichierDto;
 import com.cgl.model.Fichier;
@@ -40,16 +40,8 @@ public class ViewController {
 
     @GetMapping(value = "/stats")
     public String stats(Model model) {
-        List<Fichier> fichiers = fichierRepository.findAll();
-        Map<Date, Integer> stats = new HashMap<>();
+        List<Object[]> stats = fichierRepository.countFichiersByDate();
 
-        for (Fichier fichier : fichiers) {
-            if (!stats.containsKey(fichier.getDate()))
-                stats.put(fichier.getDate(), 1);
-            else
-                stats.put(fichier.getDate(), stats.get(fichier.getDate()) + 1);
-
-        }
         model.addAttribute("stats", stats);
 
         return "stats";
