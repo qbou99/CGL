@@ -24,6 +24,11 @@ public class FichierController {
         return fichierRepository.findAll();
     }
 
+    @GetMapping("/nom/{nom}")
+    public List<Fichier> getFichierContainingNom(@PathVariable(value = "nom") String nomFichier) {
+        return fichierRepository.findByNomContaining(nomFichier);
+    }
+
     @GetMapping("/{id}")
     public Fichier getFichierById(@PathVariable(value = "id") Long fichierId) {
         return fichierRepository.findById(fichierId)

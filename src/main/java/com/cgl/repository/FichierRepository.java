@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface FichierRepository extends JpaRepository<Fichier, Long> {
     Optional<Fichier> findById(Long id);
 
-    List<Fichier> findByNameContaining(String nom);
+    List<Fichier> findByNomContaining(String nom);
 
     List<Fichier> findAllByOrderByDateDesc();
     @Query(value = "SELECT c.date, COUNT(c.date) FROM Fichier AS c GROUP BY c.date")
