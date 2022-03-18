@@ -39,11 +39,11 @@
     </tbody>
 </table>
 
-<form th:action="@{/document/m}" th:method="post">
+<form th:action="@{/docs_list/pagePrecedante/{page}(page = page)}" th:method="get">
     <input type="submit" value="<"/>
 </form>
 
-<form th:action="@{/document/p}" th:method="post">
+<form th:action="@{/docs_list/pageSuivante/{page}(page = page)}" th:method="get">
     <input type="submit" value=">"/>
 </form>
 

@@ -18,6 +18,7 @@ import java.util.List;
 public class FichierController {
 
     private final FichierRepository fichierRepository;
+
     List<Fichier> fichiers;
     int page = 0;
     String nomCherche = "";
@@ -58,9 +59,11 @@ public class FichierController {
 
     @PostMapping(path = "/p")
     public RedirectView addPage() {
-        this.page = this.page + 1;
-        Pageable pageable = PageRequest.of(page, 10);
-        this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
+        if (this.page < (fichierRepository.findAll().size() / 10)) {
+            this.page = this.page + 1;
+            Pageable pageable = PageRequest.of(page, 10);
+            this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
+        }
         return new RedirectView("../docs_list");
     }
 
