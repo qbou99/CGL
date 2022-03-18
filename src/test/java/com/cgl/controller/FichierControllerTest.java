@@ -100,17 +100,5 @@ class FichierControllerTest {
 
         assertThat(fichierArgumentCaptor.getValue().getNom()).isEqualTo(f1.getNom());
     }
-
-    @Test
-    void givenNom_whenSearchByName_thenFichierLikeName() {
-        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", TypeFichier.Image);
-
-        when(fichierRepository.findByNomContaining("Fichier", PageRequest.of(0, 10))).thenReturn(List.of(f1));
-
-        RedirectView result = fichierController.getFichierContainingNom("Fichier");
-
-        verify(fichierRepository).findByNomContaining(fichierArgumentCaptor.capture());
-
-        assertThat(fichierArgumentCaptor.getValue().getNom()).isEqualTo(f1.getNom());
-    }
+    
 }
