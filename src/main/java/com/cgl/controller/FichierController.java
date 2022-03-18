@@ -4,7 +4,6 @@ import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
 import com.cgl.model.TypeFichier;
 import com.cgl.repository.FichierRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -16,17 +15,23 @@ import java.util.List;
 @RequestMapping("/document")
 public class FichierController {
 
-    @Autowired
-    FichierRepository fichierRepository;
+    private final FichierRepository fichierRepository;
+    List<Fichier> fichiers;
+
+    public FichierController(FichierRepository fichierRepository) {
+        this.fichierRepository = fichierRepository;
+        this.fichiers = fichierRepository.findAll();
+    }
 
     @GetMapping("")
     public List<Fichier> getAllFichiers() {
         return fichierRepository.findAll();
     }
 
-    @GetMapping("/nom/{nom}")
-    public List<Fichier> getFichierContainingNom(@PathVariable(value = "nom") String nomFichier) {
-        return fichierRepository.findByNomContaining(nomFichier);
+    @GetMapping("/nom")
+    public RedirectView getFichierContainingNom(@RequestParam(value = "nom") String nomFichier) {
+        fichiers = fichierRepository.findByNomContaining(nomFichier);
+        return new RedirectView("../../docs_list");
     }
 
     @GetMapping("/{id}")
