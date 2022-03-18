@@ -55,17 +55,22 @@ public class ViewController {
         return "new_doc";
     }
 
+    @GetMapping(value = "/stats")
+    public String stats(Model model) {
+        return "statsIndex";
+    }
+
     @GetMapping(value = "/DateStats")
     public String dateStats(Model model) {
         List<Object[]> dateStats = fichierRepository.countFichiersByDate();
         model.addAttribute("dateStats", dateStats);
-        return "stats";
+        return "statsDate";
     }
 
     @GetMapping(value = "/TypeStats")
     public String typeStats(Model model) {
         List<Object[]> typeStats = fichierRepository.countFichiersByType();
         model.addAttribute("typeStats", typeStats);
-        return "stats";
+        return "statsType";
     }
 }

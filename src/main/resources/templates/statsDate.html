@@ -18,17 +18,7 @@
         <td th:text="${dateStats[0]}"></td>
         <td th:text="${dateStats[1]}"></td>
     </tr>
-    <tr>
-        <th>Type</th>
-        <th>Nombre de documents archivés</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="typeStats : ${typeStats}">
-        <td th:text="${typeStats[0]}"></td>
-        <td th:text="${typeStats[1]}"></td>
-    </tr>
     </tbody>
 </table>
-<a th:href="@{/}">Retour à l'accueil</a>
+<a th:href="@{/stats}">Retour à l'accueil</a>
 </body>
