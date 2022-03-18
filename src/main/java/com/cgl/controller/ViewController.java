@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class ViewController {
         Pageable pageable = PageRequest.of(Integer.parseInt(page), 10);
         List<Fichier> fichiers = fichierRepository.findByNomContaining("", pageable);
         model.addAttribute("fichiers", fichiers);
-        if(fichiers.size() == 10)
+        if (fichiers.size() == 10)
             model.addAttribute("pageSuiv", Integer.parseInt(page) + 1);
         else
             model.addAttribute("pageSuiv", -1);
@@ -62,10 +61,17 @@ public class ViewController {
         return "new_doc";
     }
 
-    @GetMapping(value = "/stats")
-    public String stats(Model model) {
-        List<Object[]> stats = fichierRepository.countFichiersByDate();
-        model.addAttribute("stats", stats);
+    @GetMapping(value = "/DateStats")
+    public String dateStats(Model model) {
+        List<Object[]> dateStats = fichierRepository.countFichiersByDate();
+        model.addAttribute("dateStats", dateStats);
+        return "stats";
+    }
+
+    @GetMapping(value = "/TypeStats")
+    public String typeStats(Model model) {
+        List<Object[]> typeStats = fichierRepository.countFichiersByType();
+        model.addAttribute("typeStats", typeStats);
         return "stats";
     }
 }

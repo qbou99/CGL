@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/document")
@@ -55,9 +56,16 @@ public class FichierController {
     @PostMapping(path = "")
     public RedirectView archiveFichier(@RequestParam("file") File file, @RequestParam("nom") String nom, @RequestParam("typeFichier") String typeFichier) {
         String chemin = StringUtils.cleanPath(file.getAbsolutePath());
-        Type type = new Type(typeFichier);
-        typeRepository.save(type);
-        Fichier fichier = new Fichier(chemin, nom, type);
+
+        Optional<Type> type = typeRepository.findByNom(typeFichier);
+        Type type1;
+        if (type.isEmpty()) {
+            type1 = typeRepository.save(new Type(typeFichier));
+        } else {
+            type1 = type.get();
+        }
+        Fichier fichier = new Fichier(chemin, nom, type1);
+
         fichierRepository.save(fichier);
         return new RedirectView("new_doc");
     }

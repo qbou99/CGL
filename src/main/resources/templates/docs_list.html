@@ -27,7 +27,7 @@
     <tr th:each="fichier : ${fichiers}">
         <td th:text="${fichier.id}"></td>
         <td th:text="${fichier.nom}"></td>
-        <td th:text="${fichier.typeFichier}"></td>
+        <td th:text="${fichier.typeFichier.nom}"></td>
         <td th:text="${fichier.date}"></td>
         <td>
             <input type="button" th:onclick="alert('Chemin: [[${fichier.chemin}]]')" value="Télécharger" />

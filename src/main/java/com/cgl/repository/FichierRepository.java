@@ -17,4 +17,9 @@ public interface FichierRepository extends JpaRepository<Fichier, Long> {
     List<Fichier> findAllByOrderByDateDesc();
     @Query(value = "SELECT c.date, COUNT(c.date) FROM Fichier AS c GROUP BY c.date")
     List<Object[]> countFichiersByDate();
+
+    List<Fichier> findAllByOrderByTypeFichierDesc();
+    @Query(value = "SELECT c.typeFichier, COUNT(c.typeFichier) FROM Fichier AS c GROUP BY c.typeFichier")
+    List<Object[]> countFichiersByType();
+
 }
