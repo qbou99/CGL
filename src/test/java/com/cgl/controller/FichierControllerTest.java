@@ -5,6 +5,7 @@ import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
 import com.cgl.model.Type;
 import com.cgl.repository.FichierRepository;
+import com.cgl.repository.TypeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -33,6 +34,9 @@ class FichierControllerTest {
 
     @Mock
     FichierRepository fichierRepository;
+
+    @Mock
+    TypeRepository typeRepository;
 
     @Captor
     ArgumentCaptor<Fichier> fichierArgumentCaptor;
@@ -76,9 +80,11 @@ class FichierControllerTest {
 
     @Test
     void givenFichier_whenSave_thenFichierSaved() {
-        FichierDto f = new FichierDto("/user/fichier", "Fichier 1", new Type("Audio"));
+        Type t = new Type("Audio");
+        FichierDto f = new FichierDto("/user/fichier", "Fichier 1", t);
 
         when(fichierRepository.save(any(Fichier.class))).thenReturn(f.dtoToEntity());
+        when(typeRepository.findByNom("Audio")).thenReturn(Optional.of(t));
 
         RedirectView result = fichierController.archiveFichier(new File("/user/fichier"), "Fichier 1", "Audio");
 
