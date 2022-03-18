@@ -27,6 +27,12 @@ public class FichierDto {
         this.chemin = "";
     }
 
+    public FichierDto(String chemin, String nom, TypeFichier type) {
+        this.nom = nom;
+        this.chemin = chemin;
+        this.typeFichier = type;
+    }
+
     public Fichier dtoToEntity() {
         Fichier fichier = new Fichier();
         fichier.setNom(this.getNom());
