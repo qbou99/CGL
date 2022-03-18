@@ -3,7 +3,7 @@ package com.cgl.controller;
 import com.cgl.dto.FichierDto;
 import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
-import com.cgl.model.TypeFichier;
+import com.cgl.model.Type;
 import com.cgl.repository.FichierRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.File;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,8 +39,8 @@ class FichierControllerTest {
 
     @Test
     void givenFichiers_whenGetAll_thenFichiers() {
-        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", TypeFichier.Image);
-        Fichier f2 = new Fichier("/user/fichier2", "Fichier 2", TypeFichier.Audio);
+        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", new Type("Image"));
+        Fichier f2 = new Fichier("/user/fichier2", "Fichier 2", new Type("Audio"));
         List<Fichier> fichiers = Arrays.asList(f1, f2);
 
         when(fichierRepository.findAll()).thenReturn(fichiers);
@@ -55,7 +54,7 @@ class FichierControllerTest {
 
     @Test
     void givenFichier1_whenGet1_thenFichier1() {
-        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", TypeFichier.Image);
+        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", new Type("Image"));
 
         when(fichierRepository.findById(1L)).thenReturn(Optional.of(f1));
 
@@ -77,7 +76,7 @@ class FichierControllerTest {
 
     @Test
     void givenFichier_whenSave_thenFichierSaved() {
-        FichierDto f = new FichierDto("/user/fichier", "Fichier 1", TypeFichier.Audio);
+        FichierDto f = new FichierDto("/user/fichier", "Fichier 1", new Type("Audio"));
 
         when(fichierRepository.save(any(Fichier.class))).thenReturn(f.dtoToEntity());
 
@@ -90,7 +89,7 @@ class FichierControllerTest {
 
     @Test
     void givenFichier_whenDelete_thenFichierDeleted() {
-        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", TypeFichier.Image);
+        Fichier f1 = new Fichier("/user/fichier1", "Fichier 1", new Type("Image"));
 
         when(fichierRepository.findById(1L)).thenReturn(Optional.of(f1));
 
@@ -100,5 +99,5 @@ class FichierControllerTest {
 
         assertThat(fichierArgumentCaptor.getValue().getNom()).isEqualTo(f1.getNom());
     }
-    
+
 }

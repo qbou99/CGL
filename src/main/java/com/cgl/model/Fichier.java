@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -30,15 +29,15 @@ public class Fichier {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @NotNull
-    private TypeFichier typeFichier;
+    @ManyToOne
+    private Type typeFichier;
 
     public Fichier() {
         this.nom = "";
         this.date = new Date();
     }
 
-    public Fichier(String chemin, String nom, TypeFichier typeFichier) {
+    public Fichier(String chemin, String nom, Type typeFichier) {
         this.chemin = chemin;
         this.typeFichier = typeFichier;
         this.nom = nom;
@@ -73,11 +72,11 @@ public class Fichier {
         this.date = date;
     }
 
-    public TypeFichier getTypeFichier() {
+    public Type getTypeFichier() {
         return typeFichier;
     }
 
-    public void setTypeFichier(TypeFichier typeFichier) {
+    public void setTypeFichier(Type typeFichier) {
         this.typeFichier = typeFichier;
     }
 

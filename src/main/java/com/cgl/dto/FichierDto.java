@@ -1,16 +1,9 @@
 package com.cgl.dto;
 
 import com.cgl.model.Fichier;
-import com.cgl.model.TypeFichier;
-import org.springframework.core.io.InputStreamSource;
-import org.springframework.web.multipart.MultipartFile;
+import com.cgl.model.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.xml.transform.stream.StreamSource;
-import java.io.File;
 
 public class FichierDto {
 
@@ -19,25 +12,26 @@ public class FichierDto {
 
     private String chemin;
 
-    @NotNull
-    private TypeFichier typeFichier;
+    private Type type;
+
 
     public FichierDto() {
         this.nom = "";
         this.chemin = "";
+        this.type = new Type("Inconnu");
     }
 
-    public FichierDto(String chemin, String nom, TypeFichier type) {
+    public FichierDto(String chemin, String nom, Type type) {
         this.nom = nom;
         this.chemin = chemin;
-        this.typeFichier = type;
+        this.type = type;
     }
 
     public Fichier dtoToEntity() {
         Fichier fichier = new Fichier();
         fichier.setNom(this.getNom());
         fichier.setChemin(this.getChemin());
-        fichier.setTypeFichier(this.getTypeFichier());
+        fichier.setTypeFichier(this.getType());
         return fichier;
     }
 
@@ -57,11 +51,11 @@ public class FichierDto {
         this.chemin = chemin;
     }
 
-    public TypeFichier getTypeFichier() {
-        return typeFichier;
+    public Type getType() {
+        return type;
     }
 
-    public void setTypeFichier(TypeFichier typeFichier) {
-        this.typeFichier = typeFichier;
+    public void setType(Type type) {
+        this.type = type;
     }
 }
