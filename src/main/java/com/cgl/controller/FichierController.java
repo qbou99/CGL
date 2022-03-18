@@ -5,7 +5,6 @@ import com.cgl.model.Fichier;
 import com.cgl.model.TypeFichier;
 import com.cgl.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -29,26 +28,6 @@ public class FichierController {
     public Fichier getFichierById(@PathVariable(value = "id") Long fichierId) {
         return fichierRepository.findById(fichierId)
                 .orElseThrow(() -> new ResourceNotFoundException("Fichier", "id", fichierId));
-    }
-
-    @GetMapping("/texte")
-    public Fichier getFichiersTexte() {
-        return fichierRepository.findByTypeFichier(TypeFichier.Texte);
-    }
-
-    @GetMapping("/image")
-    public Fichier getFichiersImage() {
-        return fichierRepository.findByTypeFichier(TypeFichier.Image);
-    }
-
-    @GetMapping("/video")
-    public Fichier getFichiersVideo() {
-        return fichierRepository.findByTypeFichier(TypeFichier.Video);
-    }
-
-    @GetMapping("/audio")
-    public Fichier getFichiersAudio() {
-        return fichierRepository.findByTypeFichier(TypeFichier.Audio);
     }
 
     @PostMapping(path = "")
