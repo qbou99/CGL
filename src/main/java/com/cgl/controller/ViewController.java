@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -33,26 +34,18 @@ public class ViewController {
     }
 
     @GetMapping(value = "/docs_list/{page}")
-    public String docs_list(@PathVariable(value = "page") String page, Model model) {
+    public String docs_list(@PathVariable(value = "page") String page, Model model, @RequestParam("nom") Optional<String> nom) {
         Pageable pageable = PageRequest.of(Integer.parseInt(page), 10);
-        List<Fichier> fichiers = fichierRepository.findByNomContaining("", pageable);
+        if(nom.isEmpty())
+            nom = Optional.of("");
+        List<Fichier> fichiers = fichierRepository.findByNomContaining(nom.get(), pageable);
         model.addAttribute("fichiers", fichiers);
         if(fichiers.size() == 10)
             model.addAttribute("pageSuiv", Integer.parseInt(page) + 1);
         else
             model.addAttribute("pageSuiv", -1);
         model.addAttribute("pagePrec", Integer.parseInt(page) - 1);
-
-        return "docs_list";
-    }
-
-    @GetMapping(value = "/docs_list/{page}/{nom}")
-    public String docs_list_nom(@PathVariable(value = "nom") String nom, @PathVariable(value = "page") String page, Model model) {
-        Pageable pageable = PageRequest.of(Integer.parseInt(page), 10);
-        List<Fichier> fichiers = fichierRepository.findByNomContaining(nom, pageable);
-        model.addAttribute("fichiers", fichiers);
-        model.addAttribute("page", page);
-        model.addAttribute("nom", nom);
+        model.addAttribute("nom", nom.get());
         return "docs_list";
     }
 

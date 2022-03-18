@@ -7,8 +7,8 @@
 </head>
 <body>
 <p>
-<form th:method="get" th:action="@{/document/nom/}">
-    <input type="text" name="nom" value="nom de l'archive"/>
+<form th:method="get" th:action="@{/docs_list/0}">
+    <input type="text" name="nom" placeholder="nom de l'archive"/>
     <input type="submit" value="Rechercher"/>
 </form>
 </p>
@@ -42,9 +42,9 @@
 </table>
 
 <span>
-<a th:if="${pagePrec} >= 0" th:href="@{/docs_list/{page}(page = ${pagePrec})}">Précédent</a>
+<a th:if="${pagePrec} >= 0" th:href="@{/docs_list/{page}(page = ${pagePrec}, nom = ${nom})}">Précédent</a>
 
-<a th:if="${pageSuiv} >= 0" th:href="@{/docs_list/{page}(page = ${pageSuiv})}">Suivant</a>
+<a th:if="${pageSuiv} >= 0" th:href="@{/docs_list/{page}(page = ${pageSuiv}, nom = ${nom})}">Suivant</a>
 </span>
 <br/>
 <br/>
