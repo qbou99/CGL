@@ -22,4 +22,6 @@ public interface FichierRepository extends JpaRepository<Fichier, Long> {
     @Query(value = "SELECT c.typeFichier, COUNT(c.typeFichier) FROM Fichier AS c GROUP BY c.typeFichier")
     List<Object[]> countFichiersByType();
 
+    @Query(value = "SELECT c.date, c.typeFichier, COUNT(*) FROM Fichier AS c GROUP BY c.date, c.typeFichier")
+    List<Object[]> countFichiersByTypeAndDate();
 }

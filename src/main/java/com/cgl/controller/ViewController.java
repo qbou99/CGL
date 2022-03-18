@@ -73,4 +73,11 @@ public class ViewController {
         model.addAttribute("typeStats", typeStats);
         return "statsType";
     }
+
+    @GetMapping(value = "/TypeAndDateStats")
+    public String typeAndDateStats(Model model) {
+        List<Object[]> typeStats = fichierRepository.countFichiersByTypeAndDate();
+        model.addAttribute("typeAndDateStats", typeStats);
+        return "statsTypeAndDate";
+    }
 }

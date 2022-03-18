@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Archivage de documents</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Nombre de documents archivés</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="typeAndDateStats : ${typeAndDateStats}">
+        <td th:text="${typeAndDateStats[0]}"></td>
+        <td th:text="${typeAndDateStats[1].nom}"></td>
+        <td th:text="${typeAndDateStats[2]}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/stats}">Retour à l'accueil</a>
+</body>
