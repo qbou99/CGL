@@ -19,7 +19,7 @@
         <th>Nom du document</th>
         <th>Type</th>
         <th>Date d'archivage</th>
-        <th>Chemin d'accès</th>
+        <th>Télécharger l'archive</th>
         <th>Supprimer l'archive</th>
     </tr>
     </thead>
@@ -29,7 +29,9 @@
         <td th:text="${fichier.nom}"></td>
         <td th:text="${fichier.typeFichier}"></td>
         <td th:text="${fichier.date}"></td>
-        <td th:text="${fichier.chemin}"></td>
+        <td>
+            <input type="button" th:onclick="alert('Chemin: [[${fichier.chemin}]]')" value="Télécharger" />
+        </td>
         <td>
             <form th:action="@{/document/{id}(id = ${fichier.id})}" th:method="post">
                 <input type="submit" value="Supprimer" onclick="confirm('Êtes-vous sûr ?')"/>
