@@ -34,7 +34,7 @@
         </td>
         <td>
             <form th:action="@{/document/{id}(id = ${fichier.id})}" th:method="post">
-                <input type="submit" value="Supprimer" onclick="confirm('Êtes-vous sûr ?')"/>
+                <input type="submit" value="Supprimer" onclick="return confirm('Êtes-vous sûr ?')"/>
             </form>
         </td>
     </tr>
