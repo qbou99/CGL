@@ -4,6 +4,8 @@ import com.cgl.exception.ResourceNotFoundException;
 import com.cgl.model.Fichier;
 import com.cgl.model.TypeFichier;
 import com.cgl.repository.FichierRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,10 +19,13 @@ public class FichierController {
 
     private final FichierRepository fichierRepository;
     List<Fichier> fichiers;
+    int page = 0;
+    String nomCherche = "";
 
     public FichierController(FichierRepository fichierRepository) {
         this.fichierRepository = fichierRepository;
-        this.fichiers = fichierRepository.findAll();
+        Pageable pageable = PageRequest.of(page, 10);
+        this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
     }
 
     @GetMapping("")
@@ -30,7 +35,10 @@ public class FichierController {
 
     @GetMapping("/nom")
     public RedirectView getFichierContainingNom(@RequestParam(value = "nom") String nomFichier) {
-        fichiers = fichierRepository.findByNomContaining(nomFichier);
+        this.page = 0;
+        this.nomCherche = nomFichier;
+        Pageable pageable = PageRequest.of(page, 10);
+        fichiers = fichierRepository.findByNomContaining(nomFichier, pageable);
         return new RedirectView("../../docs_list");
     }
 
@@ -46,6 +54,24 @@ public class FichierController {
         Fichier fichier = new Fichier(chemin, nom, stringToTypeFichier(typeFichier));
         fichierRepository.save(fichier);
         return new RedirectView("new_doc");
+    }
+
+    @PostMapping(path = "/p")
+    public RedirectView addPage() {
+        this.page = this.page + 1;
+        Pageable pageable = PageRequest.of(page, 10);
+        this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
+        return new RedirectView("../docs_list");
+    }
+
+    @PostMapping(path = "/m")
+    public RedirectView deletePage() {
+        if (this.page > 0) {
+            this.page = this.page - 1;
+            Pageable pageable = PageRequest.of(page, 10);
+            this.fichiers = fichierRepository.findByNomContaining(nomCherche, pageable);
+        }
+        return new RedirectView("../docs_list");
     }
 
     private TypeFichier stringToTypeFichier(String typeFichier) {
